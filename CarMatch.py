@@ -69,7 +69,6 @@ class CarExpert(KnowledgeEngine):
 
     @Rule(Fact(car_type="popular"),
           Fact(manufacturer="france"),
-          Fact(fuel="electric"),
           salience=10)
     def peugeot_brand(self):
 
@@ -86,7 +85,6 @@ class CarExpert(KnowledgeEngine):
 
     @Rule(Fact(car_type="high-end"),
           Fact(manufacturer="USA"),
-          Fact(fuel="electric"),
           salience=10)
     def tesla_brand(self):
 
@@ -95,7 +93,6 @@ class CarExpert(KnowledgeEngine):
 
     @Rule(Fact(car_type="sport"),
           Fact(manufacturer="germany"),
-          Fact(fuel="gasoline"),
           salience=10)
     def audi_brand(self):
 
@@ -115,31 +112,63 @@ class CarExpert(KnowledgeEngine):
 # -----------------------
 
     @Rule(Fact(brand="peugeot"),
-          Fact(price_range="[30-70]"),
+            Fact(price_range="[30000-70000]"),
           salience=20)
     def peugeot_model(self):
 
         self.declare(Fact(final_car="peugeot_e_208"))
 
 
+        @Rule(Fact(brand="peugeot"),
+            Fact(price_range="[70000-180000]"),
+            salience=20)
+        def peugeot_model_mid(self):
+
+          self.declare(Fact(final_car="peugeot_e_208"))
+
+
+        @Rule(Fact(brand="peugeot"),
+            Fact(price_range="[180000-600000]"),
+            salience=20)
+        def peugeot_model_high(self):
+
+          self.declare(Fact(final_car="peugeot_e_208"))
+
+
     @Rule(Fact(brand="mercedes"),
-          Fact(price_range="[70-180]"),
+            Fact(price_range="[70000-180000]"),
           salience=20)
     def mercedes_model(self):
 
         self.declare(Fact(final_car="mercedes_class_a"))
 
 
+        @Rule(Fact(brand="mercedes"),
+            Fact(price_range="[180000-600000]"),
+            salience=20)
+        def mercedes_model_high(self):
+
+          self.declare(Fact(final_car="mercedes_class_a"))
+
+
     @Rule(Fact(brand="tesla"),
-          Fact(price_range="[70-180]"),
+            Fact(price_range="[70000-180000]"),
           salience=20)
     def tesla_model(self):
 
         self.declare(Fact(final_car="tesla_model_3"))
 
 
+        @Rule(Fact(brand="tesla"),
+            Fact(price_range="[180000-600000]"),
+            salience=20)
+        def tesla_model_high(self):
+
+          self.declare(Fact(final_car="tesla_model_3"))
+
+
     @Rule(Fact(brand="audi"),
-          Fact(price_range="[180-600]"),
+            Fact(price_range="[180000-600000]"),
           salience=20)
     def audi_rs3(self):
 
@@ -147,15 +176,23 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="audi"),
-          Fact(price_range="[70-180]"),
+            Fact(price_range="[70000-180000]"),
           salience=20)
     def audi_a4(self):
 
         self.declare(Fact(final_car="audi_a4"))
 
 
+        @Rule(Fact(brand="audi"),
+            Fact(price_range="[30000-70000]"),
+            salience=20)
+        def audi_a4_low(self):
+
+          self.declare(Fact(final_car="audi_a4"))
+
+
     @Rule(Fact(brand="toyota"),
-          Fact(price_range="[70-180]"),
+            Fact(price_range="[70000-180000]"),
           salience=20)
     def toyota_hilux(self):
 
@@ -163,11 +200,19 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="toyota"),
-          Fact(price_range="[180-600]"),
+            Fact(price_range="[180000-600000]"),
           salience=20)
     def toyota_prado(self):
 
         self.declare(Fact(final_car="toyota_prado"))
+
+
+        @Rule(Fact(brand="toyota"),
+            Fact(price_range="[30000-70000]"),
+            salience=20)
+        def toyota_hilux_low(self):
+
+          self.declare(Fact(final_car="toyota_hylux"))
 
 
 # -----------------------
@@ -194,9 +239,6 @@ class CarExpert(KnowledgeEngine):
         recommended_car = "no_match"
 
 
-engine = CarExpert()
-
-
 # -----------------------
 # RESULT WINDOW
 # -----------------------
@@ -207,6 +249,7 @@ def open_result_window():
 
     recommended_car = ""
 
+    engine = CarExpert()
     engine.reset()
 
     # DEBUG (ative se quiser ver regras)
@@ -214,24 +257,29 @@ def open_result_window():
 
     engine.run()
 
+    if recommended_car == "":
+        recommended_car = "no_match"
+
     win = Toplevel(root)
     win.title("Recommendation Result")
-    win.geometry("700x500")
+    win.geometry("760x560")
+    win.resizable(False, False)
     win.config(bg="#F6F5F5")
 
     frame = Frame(win, bg="#F6F5F5")
-    frame.pack(pady=40)
+    frame.pack(pady=30, padx=20)
 
     if recommended_car == "no_match":
 
         Label(frame,
               text="No match found",
-              font=("Arial",16),
+              font=("Arial",18,"bold"),
               fg="red",
               bg="#F6F5F5").pack()
 
         Label(frame,
               text="Try another combination",
+              font=("Arial",12),
               bg="#F6F5F5").pack()
 
     else:
@@ -240,12 +288,12 @@ def open_result_window():
 
         Label(frame,
               text="Recommended Car",
-              font=("Arial",20,"bold"),
+              font=("Arial",22,"bold"),
               bg="#F6F5F5").pack()
 
         Label(frame,
               text=car_name,
-              font=("Arial",16),
+              font=("Arial",15),
               bg="#F6F5F5").pack(pady=10)
 
         img = load_image(f"./images/{recommended_car}.jpg",(420,260))
@@ -264,7 +312,9 @@ def open_result_window():
 
     Button(win,
            text="Close",
-           command=win.destroy).pack(pady=20)
+            command=win.destroy,
+            width=12,
+            font=("Arial",11)).pack(pady=20)
 
 
 # -----------------------
@@ -297,37 +347,39 @@ def reset_selections():
 # -----------------------
 
 root.title("CarMatch Car Expert System")
-root.geometry("900x650")
+root.geometry("1020x700")
+root.resizable(False, False)
 root.config(bg="#F6F5F5")
 
 
 header = Frame(root,bg="#F6F5F5")
-header.pack(pady=20)
+header.pack(pady=16)
 
 Label(header,
       text="CarMatch Advisor",
-      font=("Arial",24,"bold"),
+    font=("Arial",28,"bold"),
       bg="#F6F5F5",
       fg="#276678").pack()
 
 Label(header,
       text="Expert system to find your ideal car",
+    font=("Arial",12),
       bg="#F6F5F5").pack()
 
 
 body = Frame(root,bg="#F6F5F5")
-body.pack(pady=30)
+body.pack(pady=24)
 
-left = Frame(body,bg="#D3E0EA",padx=20,pady=20)
-left.pack(side="left",padx=20)
+left = Frame(body,bg="#D3E0EA",padx=28,pady=24)
+left.pack(side="left",padx=18)
 
-right = Frame(body,bg="#D3E0EA",padx=20,pady=20)
-right.pack(side="right",padx=20)
+right = Frame(body,bg="#D3E0EA",padx=28,pady=24)
+right.pack(side="right",padx=18)
 
 
 # Manufacturer
 
-Label(left,text="Manufacturer",bg="#D3E0EA").pack(anchor="w")
+Label(left,text="Manufacturer",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
 
 manufacturer_var.set("None")
 
@@ -340,12 +392,13 @@ for t,v in [("France","france"),
                 text=t,
                 variable=manufacturer_var,
                 value=v,
+                font=("Arial",11),
                 bg="#D3E0EA").pack(anchor="w")
 
 
 # Category
 
-Label(left,text="\nCategory",bg="#D3E0EA").pack(anchor="w")
+Label(left,text="\nCategory",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
 
 car_type_var.set("None")
 
@@ -358,12 +411,13 @@ for t,v in [("Sport","sport"),
                 text=t,
                 variable=car_type_var,
                 value=v,
+                font=("Arial",11),
                 bg="#D3E0EA").pack(anchor="w")
 
 
 # Fuel
 
-Label(right,text="Fuel Type",bg="#D3E0EA").pack(anchor="w")
+Label(right,text="Fuel Type",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
 
 fuel_var.set("None")
 
@@ -375,38 +429,42 @@ for t,v in [("Diesel","diesel"),
                 text=t,
                 variable=fuel_var,
                 value=v,
+                font=("Arial",11),
                 bg="#D3E0EA").pack(anchor="w")
 
 
 # Budget
 
-Label(right,text="\nBudget",bg="#D3E0EA").pack(anchor="w")
+Label(right,text="\nBudget",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
 
 budget_var.set("None")
 
-for t,v in [("30-70","[30-70]"),
-            ("70-180","[70-180]"),
-            ("180-600","[180-600]")]:
+for t,v in [("R$ 30.000 - R$ 70.000","[30000-70000]"),
+            ("R$ 70.000 - R$ 180.000","[70000-180000]"),
+            ("R$ 180.000 - R$ 600.000","[180000-600000]")]:
 
     Radiobutton(right,
                 text=t,
                 variable=budget_var,
                 value=v,
+                font=("Arial",11),
                 bg="#D3E0EA").pack(anchor="w")
 
 
 footer = Frame(root,bg="#F6F5F5")
-footer.pack(pady=40)
+footer.pack(pady=28)
 
 Button(footer,
        text="Reset",
        command=reset_selections,
-       width=12).pack(side="left",padx=10)
+    width=14,
+    font=("Arial",11)).pack(side="left",padx=12)
 
 Button(footer,
        text="Search",
        command=submit_request,
-       width=12).pack(side="left",padx=10)
+    width=14,
+    font=("Arial",11)).pack(side="left",padx=12)
 
 
 root.mainloop()
