@@ -113,7 +113,7 @@ class CarExpert(KnowledgeEngine):
 # -----------------------
 
     @Rule(Fact(brand="peugeot"),
-            Fact(price_range="[30000-70000]"),
+          Fact(price_range="[30000-70000]"),
           salience=20)
     def peugeot_model(self):
 
@@ -121,23 +121,31 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="peugeot"),
-        Fact(price_range="[70000-180000]"),
-        salience=20)
+          Fact(price_range="[70000-180000]"),
+          salience=20)
     def peugeot_model_mid(self):
 
         self.declare(Fact(final_car="peugeot_e_208"))
 
 
     @Rule(Fact(brand="peugeot"),
-        Fact(price_range="[180000-600000]"),
-        salience=20)
+          Fact(price_range="[180000-600000]"),
+          salience=20)
     def peugeot_model_high(self):
 
         self.declare(Fact(final_car="peugeot_e_208"))
 
 
     @Rule(Fact(brand="mercedes"),
-            Fact(price_range="[70000-180000]"),
+          Fact(price_range="[30000-70000]"),
+          salience=20)
+    def mercedes_model_low(self):
+
+        self.declare(Fact(final_car="mercedes_class_a"))
+
+
+    @Rule(Fact(brand="mercedes"),
+          Fact(price_range="[70000-180000]"),
           salience=20)
     def mercedes_model(self):
 
@@ -145,15 +153,23 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="mercedes"),
-        Fact(price_range="[180000-600000]"),
-        salience=20)
+          Fact(price_range="[180000-600000]"),
+          salience=20)
     def mercedes_model_high(self):
 
         self.declare(Fact(final_car="mercedes_class_a"))
 
 
     @Rule(Fact(brand="tesla"),
-            Fact(price_range="[70000-180000]"),
+          Fact(price_range="[30000-70000]"),
+          salience=20)
+    def tesla_model_low(self):
+
+        self.declare(Fact(final_car="tesla_model_3"))
+
+
+    @Rule(Fact(brand="tesla"),
+          Fact(price_range="[70000-180000]"),
           salience=20)
     def tesla_model(self):
 
@@ -161,23 +177,23 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="tesla"),
-        Fact(price_range="[180000-600000]"),
-        salience=20)
+          Fact(price_range="[180000-600000]"),
+          salience=20)
     def tesla_model_high(self):
 
         self.declare(Fact(final_car="tesla_model_3"))
 
 
     @Rule(Fact(brand="audi"),
-            Fact(price_range="[180000-600000]"),
+          Fact(price_range="[30000-70000]"),
           salience=20)
-    def audi_rs3(self):
+    def audi_a4_low(self):
 
-        self.declare(Fact(final_car="audi_rs3"))
+        self.declare(Fact(final_car="audi_a4"))
 
 
     @Rule(Fact(brand="audi"),
-            Fact(price_range="[70000-180000]"),
+          Fact(price_range="[70000-180000]"),
           salience=20)
     def audi_a4(self):
 
@@ -185,15 +201,23 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="audi"),
-        Fact(price_range="[30000-70000]"),
-        salience=20)
-    def audi_a4_low(self):
+          Fact(price_range="[180000-600000]"),
+          salience=20)
+    def audi_rs3(self):
 
-        self.declare(Fact(final_car="audi_a4"))
+        self.declare(Fact(final_car="audi_rs3"))
 
 
     @Rule(Fact(brand="toyota"),
-            Fact(price_range="[70000-180000]"),
+          Fact(price_range="[30000-70000]"),
+          salience=20)
+    def toyota_hilux_low(self):
+
+        self.declare(Fact(final_car="toyota_hylux"))
+
+
+    @Rule(Fact(brand="toyota"),
+          Fact(price_range="[70000-180000]"),
           salience=20)
     def toyota_hilux(self):
 
@@ -201,19 +225,11 @@ class CarExpert(KnowledgeEngine):
 
 
     @Rule(Fact(brand="toyota"),
-            Fact(price_range="[180000-600000]"),
+          Fact(price_range="[180000-600000]"),
           salience=20)
     def toyota_prado(self):
 
         self.declare(Fact(final_car="toyota_prado"))
-
-
-    @Rule(Fact(brand="toyota"),
-        Fact(price_range="[30000-70000]"),
-        salience=20)
-    def toyota_hilux_low(self):
-
-        self.declare(Fact(final_car="toyota_hylux"))
 
 
 # -----------------------
@@ -314,10 +330,10 @@ def open_result_window():
 
     Button(win,
            text="Close",
-            command=win.destroy,
-            width=14,
-            font=("Arial",14,"bold"),
-            height=2).pack(pady=20)
+           command=win.destroy,
+           width=14,
+           font=("Arial",14,"bold"),
+           height=2).pack(pady=20)
 
 
 # -----------------------
@@ -360,13 +376,13 @@ header.pack(pady=12)
 
 Label(header,
       text="CarMatch Advisor",
-    font=("Arial",36,"bold"),
+      font=("Arial",36,"bold"),
       bg="#F6F5F5",
       fg="#276678").pack()
 
 Label(header,
       text="Expert system to find your ideal car",
-    font=("Arial",16),
+      font=("Arial",16),
       bg="#F6F5F5").pack(pady=(3,0))
 
 
@@ -433,7 +449,7 @@ for t,v in [("Diesel","diesel"),
                 variable=fuel_var,
                 value=v,
                 font=("Arial",14),
-                bg="#D3E0EA").pack(anchor="w",pady=3)
+                bg="#D3E0EA").pack(anchor="w",pady=2)
 
 
 # Budget
@@ -451,7 +467,7 @@ for t,v in [("R$ 30.000 - R$ 70.000","[30000-70000]"),
                 variable=budget_var,
                 value=v,
                 font=("Arial",14),
-                bg="#D3E0EA").pack(anchor="w",pady=3)
+                bg="#D3E0EA").pack(anchor="w",pady=2)
 
 
 footer = Frame(root,bg="#F6F5F5")
@@ -460,16 +476,16 @@ footer.pack(pady=18)
 Button(footer,
        text="Reset",
        command=reset_selections,
-    width=16,
-    font=("Arial",14,"bold"),
-    height=2).pack(side="left",padx=15)
+       width=16,
+       font=("Arial",14,"bold"),
+       height=2).pack(side="left",padx=15)
 
 Button(footer,
        text="Search",
        command=submit_request,
-    width=16,
-    font=("Arial",14,"bold"),
-    height=2).pack(side="left",padx=15)
+       width=16,
+       font=("Arial",14,"bold"),
+       height=2).pack(side="left",padx=15)
 
 
 root.mainloop()
