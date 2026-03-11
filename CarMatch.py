@@ -262,7 +262,7 @@ def open_result_window():
 
     win = Toplevel(root)
     win.title("Recommendation Result")
-    win.geometry("760x560")
+    win.geometry("820x640")
     win.resizable(False, False)
     win.config(bg="#F6F5F5")
 
@@ -273,13 +273,13 @@ def open_result_window():
 
         Label(frame,
               text="No match found",
-              font=("Arial",18,"bold"),
+              font=("Arial",24,"bold"),
               fg="red",
-              bg="#F6F5F5").pack()
+              bg="#F6F5F5").pack(pady=10)
 
         Label(frame,
               text="Try another combination",
-              font=("Arial",12),
+              font=("Arial",16),
               bg="#F6F5F5").pack()
 
     else:
@@ -288,15 +288,15 @@ def open_result_window():
 
         Label(frame,
               text="Recommended Car",
-              font=("Arial",22,"bold"),
-              bg="#F6F5F5").pack()
+              font=("Arial",26,"bold"),
+              bg="#F6F5F5").pack(pady=(0,5))
 
         Label(frame,
               text=car_name,
-              font=("Arial",15),
-              bg="#F6F5F5").pack(pady=10)
+              font=("Arial",20),
+              bg="#F6F5F5").pack(pady=12)
 
-        img = load_image(f"./images/{recommended_car}.jpg",(420,260))
+        img = load_image(f"./images/{recommended_car}.jpg",(550,340))
 
         if img:
 
@@ -313,8 +313,9 @@ def open_result_window():
     Button(win,
            text="Close",
             command=win.destroy,
-            width=12,
-            font=("Arial",11)).pack(pady=20)
+            width=14,
+            font=("Arial",14,"bold"),
+            height=2).pack(pady=20)
 
 
 # -----------------------
@@ -353,33 +354,33 @@ root.config(bg="#F6F5F5")
 
 
 header = Frame(root,bg="#F6F5F5")
-header.pack(pady=16)
+header.pack(pady=12)
 
 Label(header,
       text="CarMatch Advisor",
-    font=("Arial",28,"bold"),
+    font=("Arial",36,"bold"),
       bg="#F6F5F5",
       fg="#276678").pack()
 
 Label(header,
       text="Expert system to find your ideal car",
-    font=("Arial",12),
-      bg="#F6F5F5").pack()
+    font=("Arial",16),
+      bg="#F6F5F5").pack(pady=(3,0))
 
 
 body = Frame(root,bg="#F6F5F5")
-body.pack(pady=24)
+body.pack(pady=15)
 
-left = Frame(body,bg="#D3E0EA",padx=28,pady=24)
-left.pack(side="left",padx=18)
+left = Frame(body,bg="#D3E0EA",padx=40,pady=20)
+left.pack(side="left",padx=25,anchor="n")
 
-right = Frame(body,bg="#D3E0EA",padx=28,pady=24)
-right.pack(side="right",padx=18)
+right = Frame(body,bg="#D3E0EA",padx=40,pady=20)
+right.pack(side="right",padx=25,anchor="n")
 
 
 # Manufacturer
 
-Label(left,text="Manufacturer",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
+Label(left,text="Manufacturer",font=("Arial",16,"bold"),bg="#D3E0EA").pack(anchor="w",pady=(0,5))
 
 manufacturer_var.set("None")
 
@@ -392,13 +393,13 @@ for t,v in [("France","france"),
                 text=t,
                 variable=manufacturer_var,
                 value=v,
-                font=("Arial",11),
-                bg="#D3E0EA").pack(anchor="w")
+                font=("Arial",14),
+                bg="#D3E0EA").pack(anchor="w",pady=2)
 
 
 # Category
 
-Label(left,text="\nCategory",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
+Label(left,text="\nCategory",font=("Arial",16,"bold"),bg="#D3E0EA").pack(anchor="w",pady=(8,5))
 
 car_type_var.set("None")
 
@@ -411,13 +412,13 @@ for t,v in [("Sport","sport"),
                 text=t,
                 variable=car_type_var,
                 value=v,
-                font=("Arial",11),
-                bg="#D3E0EA").pack(anchor="w")
+                font=("Arial",14),
+                bg="#D3E0EA").pack(anchor="w",pady=2)
 
 
 # Fuel
 
-Label(right,text="Fuel Type",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
+Label(right,text="Fuel Type",font=("Arial",16,"bold"),bg="#D3E0EA").pack(anchor="w",pady=(0,5))
 
 fuel_var.set("None")
 
@@ -429,13 +430,13 @@ for t,v in [("Diesel","diesel"),
                 text=t,
                 variable=fuel_var,
                 value=v,
-                font=("Arial",11),
-                bg="#D3E0EA").pack(anchor="w")
+                font=("Arial",14),
+                bg="#D3E0EA").pack(anchor="w",pady=3)
 
 
 # Budget
 
-Label(right,text="\nBudget",font=("Arial",12,"bold"),bg="#D3E0EA").pack(anchor="w")
+Label(right,text="\nBudget",font=("Arial",16,"bold"),bg="#D3E0EA").pack(anchor="w",pady=(8,5))
 
 budget_var.set("None")
 
@@ -447,24 +448,26 @@ for t,v in [("R$ 30.000 - R$ 70.000","[30000-70000]"),
                 text=t,
                 variable=budget_var,
                 value=v,
-                font=("Arial",11),
-                bg="#D3E0EA").pack(anchor="w")
+                font=("Arial",14),
+                bg="#D3E0EA").pack(anchor="w",pady=3)
 
 
 footer = Frame(root,bg="#F6F5F5")
-footer.pack(pady=28)
+footer.pack(pady=18)
 
 Button(footer,
        text="Reset",
        command=reset_selections,
-    width=14,
-    font=("Arial",11)).pack(side="left",padx=12)
+    width=16,
+    font=("Arial",14,"bold"),
+    height=2).pack(side="left",padx=15)
 
 Button(footer,
        text="Search",
        command=submit_request,
-    width=14,
-    font=("Arial",11)).pack(side="left",padx=12)
+    width=16,
+    font=("Arial",14,"bold"),
+    height=2).pack(side="left",padx=15)
 
 
 root.mainloop()
