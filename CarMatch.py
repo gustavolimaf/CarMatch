@@ -1,4 +1,5 @@
 import collections
+import os
 
 # Compatibilidade experta Python 3.10+
 if not hasattr(collections, "Mapping"):
@@ -119,20 +120,20 @@ class CarExpert(KnowledgeEngine):
         self.declare(Fact(final_car="peugeot_e_208"))
 
 
-        @Rule(Fact(brand="peugeot"),
-            Fact(price_range="[70000-180000]"),
-            salience=20)
-        def peugeot_model_mid(self):
+    @Rule(Fact(brand="peugeot"),
+        Fact(price_range="[70000-180000]"),
+        salience=20)
+    def peugeot_model_mid(self):
 
-          self.declare(Fact(final_car="peugeot_e_208"))
+        self.declare(Fact(final_car="peugeot_e_208"))
 
 
-        @Rule(Fact(brand="peugeot"),
-            Fact(price_range="[180000-600000]"),
-            salience=20)
-        def peugeot_model_high(self):
+    @Rule(Fact(brand="peugeot"),
+        Fact(price_range="[180000-600000]"),
+        salience=20)
+    def peugeot_model_high(self):
 
-          self.declare(Fact(final_car="peugeot_e_208"))
+        self.declare(Fact(final_car="peugeot_e_208"))
 
 
     @Rule(Fact(brand="mercedes"),
@@ -143,12 +144,12 @@ class CarExpert(KnowledgeEngine):
         self.declare(Fact(final_car="mercedes_class_a"))
 
 
-        @Rule(Fact(brand="mercedes"),
-            Fact(price_range="[180000-600000]"),
-            salience=20)
-        def mercedes_model_high(self):
+    @Rule(Fact(brand="mercedes"),
+        Fact(price_range="[180000-600000]"),
+        salience=20)
+    def mercedes_model_high(self):
 
-          self.declare(Fact(final_car="mercedes_class_a"))
+        self.declare(Fact(final_car="mercedes_class_a"))
 
 
     @Rule(Fact(brand="tesla"),
@@ -159,12 +160,12 @@ class CarExpert(KnowledgeEngine):
         self.declare(Fact(final_car="tesla_model_3"))
 
 
-        @Rule(Fact(brand="tesla"),
-            Fact(price_range="[180000-600000]"),
-            salience=20)
-        def tesla_model_high(self):
+    @Rule(Fact(brand="tesla"),
+        Fact(price_range="[180000-600000]"),
+        salience=20)
+    def tesla_model_high(self):
 
-          self.declare(Fact(final_car="tesla_model_3"))
+        self.declare(Fact(final_car="tesla_model_3"))
 
 
     @Rule(Fact(brand="audi"),
@@ -183,12 +184,12 @@ class CarExpert(KnowledgeEngine):
         self.declare(Fact(final_car="audi_a4"))
 
 
-        @Rule(Fact(brand="audi"),
-            Fact(price_range="[30000-70000]"),
-            salience=20)
-        def audi_a4_low(self):
+    @Rule(Fact(brand="audi"),
+        Fact(price_range="[30000-70000]"),
+        salience=20)
+    def audi_a4_low(self):
 
-          self.declare(Fact(final_car="audi_a4"))
+        self.declare(Fact(final_car="audi_a4"))
 
 
     @Rule(Fact(brand="toyota"),
@@ -207,12 +208,12 @@ class CarExpert(KnowledgeEngine):
         self.declare(Fact(final_car="toyota_prado"))
 
 
-        @Rule(Fact(brand="toyota"),
-            Fact(price_range="[30000-70000]"),
-            salience=20)
-        def toyota_hilux_low(self):
+    @Rule(Fact(brand="toyota"),
+        Fact(price_range="[30000-70000]"),
+        salience=20)
+    def toyota_hilux_low(self):
 
-          self.declare(Fact(final_car="toyota_hylux"))
+        self.declare(Fact(final_car="toyota_hylux"))
 
 
 # -----------------------
@@ -296,7 +297,8 @@ def open_result_window():
               font=("Arial",20),
               bg="#F6F5F5").pack(pady=12)
 
-        img = load_image(f"./images/{recommended_car}.jpg",(550,340))
+        img_path = os.path.join(os.path.dirname(__file__), "images", f"{recommended_car}.jpg")
+        img = load_image(img_path, (550,340))
 
         if img:
 
