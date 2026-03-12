@@ -51,7 +51,7 @@ CarMatch
 │   ├── toyota_hylux.jpg
 │   └── toyota_prado.jpg
 │
-├── screenshot
+├── screenshots
 │   ├── mainScreen.jpg
 │   ├── exemple1.jpg
 │   ├── defaultCase.jpg
@@ -60,6 +60,22 @@ CarMatch
 ├── CarMatch.py
 └── README.md
 ```
+
+---
+
+# Screenshots
+
+## Main Screen
+![Main Interface](screenshots/mainScreen.jpg)
+
+## Example Recommendation
+![Recommendation Example](screenshots/exemple1.jpg)
+
+## Selection Conditions
+![Criteria Selection](screenshots/conditions.jpg)
+
+## Default Case
+![No Match Found](screenshots/defaultCase.jpg)
 
 ---
 
