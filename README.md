@@ -52,10 +52,10 @@ CarMatch
 │   └── toyota_prado.jpg
 │
 ├── screenshots
-│   ├── mainScreen.jpg
-│   ├── exemple1.jpg
-│   ├── defaultCase.jpg
-│   └── conditions.jpg
+│   ├── main-ui.png
+│   ├── not-found.png
+│   ├── peogeut.png
+│   └── toyota-prado.png
 │
 ├── CarMatch.py
 └── README.md
@@ -65,17 +65,17 @@ CarMatch
 
 # Screenshots
 
-## Main Screen
-![Main Interface](screenshots/mainScreen.jpg)
+## Main Interface
+![Main Screen](screenshots/main-ui.png)
 
-## Example Recommendation
-![Recommendation Example](screenshots/exemple1.jpg)
+## Recommendation Example - Peugeot
+![Peugeot Recommendation](screenshots/peogeut.png)
 
-## Selection Conditions
-![Criteria Selection](screenshots/conditions.jpg)
+## Recommendation Example - Toyota Prado
+![Toyota Prado Recommendation](screenshots/toyota-prado.png)
 
-## Default Case
-![No Match Found](screenshots/defaultCase.jpg)
+## No Match Found
+![Default Case](screenshots/not-found.png)
 
 ---
 
